@@ -1,0 +1,160 @@
+﻿/* Remove scrollbar and prevent scrolling */
+body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styles for the buttons */
+.button-container {
+    display: flex;
+    height: 100vh; /* Set the height to 100% of the viewport height */
+    width: 100%; /* Set the width to 100% */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.button-column {
+    flex: 1; /* Each column occupies half of the available width */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Occupy full height of container */
+}
+
+.button {
+    width: 100%; /* Each button occupies the full width of its column */
+    height: 100%; /* Each button occupies half of the available height */
+    font-size: 52px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-family: "Canva Sans", sans-serif; /* Use Canva Sans font */
+}
+
+/* Left button style */
+.left-button {
+    background-color: #545454; /* Initial background color */
+    color: white;
+}
+
+/* Right button style */
+.right-button {
+    background-color: #EAE9EA; /* Initial background color */
+    color: black;
+}
+
+/* Hover styles for left button */
+.left-button:hover {
+    background-color: black; /* Hover background color */
+}
+
+/* Hover styles for right button */
+.right-button:hover {
+    background-color: white; /* Hover background color */
+}
+
+/* Styles for app name */
+.app-name {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white; /* Color of app name */
+    font-family: "Canva Sans", sans-serif; /* Use Canva Sans font */
+}
+
+/* Styles for login/signup button */
+.login-signup-button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-family: "Canva Sans", sans-serif; /* Use Canva Sans font */
+    border: none;
+    border-radius: 20px;
+    background-color: #545454; /* Initial background color */
+    color: white;
+    cursor: pointer;
+}
+
+    /* Hover styles for login/signup button */
+    .login-signup-button:hover {
+        background-color: black; /* Hover background color */
+    }
+    
+    #iframeContainer {
+        width: 100%;
+        height: 100%;
+    }
+
+    #iframeContainer iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+/* LoginSignup */
+
+/* Styles for the content */
+
+.login-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 500px;
+    padding: 20px;
+    border-radius: 50px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+}
+
+.login-header {
+    font-size: 36px;
+    text-align: center;
+    margin-top: 70px;
+    margin-bottom: 30px;
+    font-family: "Canva Sans", sans-serif;
+    font-weight: bold;
+}
+
+.login-form {
+    text-align: left;
+}
+
+.login-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    font-family: "Canva Sans", sans-serif;
+}
+/* Styles for the buttons */
+.login-button {
+    width: calc(50% - 5px); /* Set width to 50% of container minus some margin */
+    padding: 10px;
+    margin-left: 9px;
+    margin-right: 9px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-family: "Canva Sans", sans-serif;
+    cursor: pointer;
+    background-color: #CCCCCC; /* Set initial background color */
+    color: black; /* Set text color */
+}
+
+    /* Change button color on hover */
+    .login-button:hover {
+        background-color: black; /* Hover background color */
+        color: white; /* Hover text color */
+    }
+
+/* VIEW NOTE PAGE */
