@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LandingPage.aspx" />
+    <Content Include="LoggedIn.aspx" />
     <Content Include="LoginSignupPage.aspx" />
     <Content Include="NewNotePage.aspx" />
     <Content Include="styles.css" />
@@ -81,6 +82,13 @@
     </Compile>
     <Compile Include="LandingPage.aspx.designer.cs">
       <DependentUpon>LandingPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LoggedIn.aspx.cs">
+      <DependentUpon>LoggedIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoggedIn.aspx.designer.cs">
+      <DependentUpon>LoggedIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="LoginSignupPage.aspx.cs">
       <DependentUpon>LoginSignupPage.aspx</DependentUpon>

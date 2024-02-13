@@ -32,35 +32,35 @@
 
         .filter-btn {
             background-color: #E2E2E2;
-            color: #333; /* Text color */
+            color: #333; 
             border: none;
-            width: 300px; /* Set width of the button */
-            text-align: left; /* Align text to the left */
-            padding-left: 15px; /* Add padding to the left side */
+            width: 300px; 
+            text-align: left; 
+            padding-left: 15px; 
             display: block;
-            line-height: 34px; /* Center the text vertically */
-            text-decoration: none; /* Remove underline */
+            line-height: 34px; 
+            text-decoration: none; 
             position: relative;
         }
 
         .filter-caret {
             position: absolute;
-            right: 10px; /* Adjust the position of the caret */
+            right: 10px;
             top: 50%;
             transform: translateY(-50%);
         }
 
         .filter-btn:hover,
         .filter-btn:focus {
-            background-color: white; /* Change background color on hover */
-            color: #333; /* Text color */
+            background-color: white;
+            color: #333; 
             outline: none;
         }
 
         /* Adjust the position and width of the dropdown */
         .dropdown-menu {
-            min-width: 300px; /* Match the width of the button */
-            right: 0; /* Align the dropdown with the button */
+            min-width: 300px; 
+            right: 0;
         }
 
         /* Adjust the position of the dropdown */
@@ -68,6 +68,22 @@
             position: absolute;
             top: 26px;
             right: 30px;
+        }
+
+        .notecont {
+            position: absolute;
+            width: 15%;
+            height: 35vh;
+            background-color: #EAE9EA;
+            top: 100px;
+            left: 30px;
+        }
+
+        .notecont:hover,
+        .notecont:focus {
+            background-color: white;
+            color: #333; 
+            outline: none;
         }
     </style>
 </head>
@@ -86,6 +102,11 @@
                 <li><a href="#"><span class="glyphicon glyphicon-arrow-down"></span> Date (Later to Recent)</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-bookmark"></span> Favorites</a></li>
             </ul>
+        </div>
+
+        <div>
+        <asp:Button ID="ViewNoteButton" runat="server" CssClass="notecont"/>
+
         </div>
     </form>
 

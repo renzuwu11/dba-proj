@@ -28,38 +28,36 @@
         }
         /* Custom style for the square */
         .TitleSquare {
-            width: 500px; /* Adjust as needed */
-            height: 50px; /* Adjust as needed */
+            width: 31.6%; /* Adjust as needed */
+            height: 7.5vh; /* Adjust as needed */
             border-radius: 10px; /* Rounded corners */
             background-color: #E2E2E2; /* Gray background */
-            margin-top: 100px;/* Spacing between squares */
-            margin-left: 60px;
-            margin-right: 15px;
-            margin-bottom: 0px;
+            margin-left: 3.9%;
+            margin-right: 1%;
+            margin-bottom: .5%;
             border: none;
             text-align: center;
         }
 
         .SubtitleSquare {
-            width: 350px; /* Adjust as needed */
-            height: 50px; /* Adjust as needed */
+            width: 21%; /* Adjust as needed */
+            height: 7.5vh; /* Adjust as needed */
             border-radius: 10px; /* Rounded corners */
             background-color: #E2E2E2; /* Gray background */
-            margin-top: 100px;/* Spacing between squares */
-            margin-right: 15px;
-            margin-bottom: 10px;
+            margin-top: 1%;/* Spacing between squares */
+            margin-right: 1%;
+            margin-bottom: .5%;
             border: none;
             text-align: center;
         }
 
         .CategorySquare {
-            position: relative; /* Ensure relative positioning for absolute positioning of caret */
-            width: 350px; /* Adjust as needed */
-            height: 50px; /* Adjust as needed */
+            width: 21%; /* Adjust as needed */
+            height: 7.5vh; /* Adjust as needed */
             border-radius: 10px; /* Rounded corners */
             background-color: #E2E2E2; /* Gray background */
             margin: 100px 0px; /* Spacing between squares */
-            margin-bottom: 10px;
+            margin-bottom: .5%;
             border: none;
             text-align: center;
             line-height: 50px; /* Center text vertically */
@@ -67,12 +65,12 @@
 
         .DateSquare {
             position: relative; /* Ensure relative positioning for absolute positioning of icon */
-            width: 300px; /* Adjust as needed */
-            height: 50px; /* Adjust as needed */
+            width: 14%; /* Adjust as needed */
+            height: 7.5vh; /* Adjust as needed */
             border-radius: 10px; /* Rounded corners */
             background-color: #E2E2E2; /* Gray background */
             margin: 100px 15px; /* Spacing between squares */
-            margin-bottom: 10px;
+            margin-bottom: .5%;
             border: none;
             text-align: center;
             line-height: 50px; /* Center text vertically */
@@ -80,12 +78,12 @@
 
         .TextSquare {
             position: relative;
-            width: 1558px;
-            height: 500px;
+            width: 91.7%;
+            height: 60vh;
             border-radius: 10px;
             background-color: #E2E2E2;
-            margin-left: 60px;
-            margin-top: 20px;
+            margin-left: 3.9%;
+            margin-top: .5%;
             border: none;
             padding: 20px; /* Adjust padding as needed */
             resize: none; /* Disable resizing of the textarea */
@@ -96,13 +94,14 @@
         }
 
         .save-button {
-            width: calc(10% - 20px); /* Set width to 50% of container minus some margin */
-            padding: 10px;
-            margin-top: 30px;
-            margin-left: 87.3%;
+            width: calc(9% - 20px); /* Set width to 50% of container minus some margin */
+            height: 5vh;
+            padding: 4px;
+            margin-top: .5%;
+            margin-left: 88.2%;
             border: none;
             border-radius: 10px;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
             background-color: #E2E2E2; /* Set initial background color */
             color: black; /* Set text color */
@@ -116,10 +115,30 @@
 
         .word-count {
             position: absolute;
-            bottom: 150px;
-            right: 90px;
+            bottom: 18%;
+            right: 14%;
             font-size: 12px;
         }
+        .char-count {
+            position: absolute;
+            bottom: 18%;
+            right: 7%;
+            font-size: 12px;
+        }
+
+/*      .format-button {
+            margin-left: 3.9%;
+            background-color: transparent;
+            color: #E2E2E2;
+            border: none;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .format-button:hover,
+        .format-button:active {
+            color: black;
+        }*/
     </style>
 </head>
 <body>
@@ -138,24 +157,73 @@
                 <asp:ListItem Text="Daily" Value="Daily"></asp:ListItem>
             </asp:DropDownList >
             <!-- Square for Date -->
-        <asp:TextBox ID="DateTextBox" runat="server" CssClass="DateSquare" TextMode="Date" style="text-align: center; padding-left: 50px; padding-right: 70px;"></asp:TextBox>
+            <asp:TextBox ID="DateTextBox" runat="server" CssClass="DateSquare" TextMode="Date" style="text-align: center; padding-left: 30px; padding-right: 40px;"></asp:TextBox>
         </div>
         <div>
             <asp:TextBox ID="TextBox" runat="server" CssClass="TextSquare" TextMode="MultiLine" placeholder="Write here..." oninput="countWords(this)"></asp:TextBox>
             <div id="wordCount" class="word-count">Words: 0</div>
+            <div id="charCount" class="char-count">Characters: 0</div>
         </div>
         <div>
+       <%-- <asp:Button ID="BoldButton" runat="server" Text="B" CssClass="format-button" OnClientClick="makeBold(); return false;" />
+            <asp:Button ID="ItalicButton" runat="server" Text="I" CssClass="format-button" OnClientClick="makeItalic(); return false;" />
+            <asp:Button ID="UnderlineButton" runat="server" Text="U" CssClass="format-button" OnClientClick="makeUnderline(); return false;" /> --%>
             <asp:Button ID="SaveButton" runat="server" CssClass="save-button" Text="save"/>
         </div>
     </form>
 
+    <!-- Characters and Word Count -->
     <script>
         function countWords(textbox) {
-            var words = textbox.value.trim().split(/\s+/).filter(function (word) {
+            var text = textbox.value.trim();
+            var words = text.split(/\s+/).filter(function (word) {
                 return word.length > 0;
             }).length;
+            var characters = text.length;
             document.getElementById('wordCount').innerText = "Words: " + words;
+            document.getElementById('charCount').innerText = "Characters: " + characters;
         }
     </script>
+
+    
+<%--    <script>
+        function makeBold() {
+            var textBox = document.getElementById('<%= TextBox.ClientID %>');
+            var currentStyle = textBox.style.fontWeight;
+            if (currentStyle === 'bold') {
+                textBox.style.fontWeight = 'normal';
+                document.getElementById('<%= BoldButton.ClientID %>').style.color = ''; // Reset button color
+            } else {
+                textBox.style.fontWeight = 'bold';
+                document.getElementById('<%= BoldButton.ClientID %>').style.color = 'black'; // Set button color
+            }
+        }
+
+        function makeItalic() {
+            var textBox = document.getElementById('<%= TextBox.ClientID %>');
+            var currentStyle = textBox.style.fontStyle;
+            if (currentStyle === 'italic') {
+                textBox.style.fontStyle = 'normal';
+                document.getElementById('<%= ItalicButton.ClientID %>').style.color = ''; // Reset button color
+            } else {
+                textBox.style.fontStyle = 'italic';
+                document.getElementById('<%= ItalicButton.ClientID %>').style.color = 'black'; // Set button color
+            }
+        }
+
+        function makeUnderline() {
+            var textBox = document.getElementById('<%= TextBox.ClientID %>');
+            var currentStyle = textBox.style.textDecoration;
+            if (currentStyle === 'underline') {
+                textBox.style.textDecoration = 'none';
+                document.getElementById('<%= UnderlineButton.ClientID %>').style.color = ''; // Reset button color
+            } else {
+                textBox.style.textDecoration = 'underline';
+                document.getElementById('<%= UnderlineButton.ClientID %>').style.color = 'black'; // Set button color
+            }
+        }
+    </script>--%>
+
+
 </body>
 </html>

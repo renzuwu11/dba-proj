@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LandingPage.aspx.cs" Inherits="DBAProject.LandingPage1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LoggedIn.aspx.cs" Inherits="DBAProject.LoggedIn" %>
 
 <!DOCTYPE html>
 
@@ -22,7 +22,7 @@
 
         <!-- Login/Signup button -->
         <div id="loginSignupContainer" runat="server" class="login-signup-container">
-            <asp:Button ID="LoginSignupButton" runat="server" CssClass="login-signup-button" Text="sign up / log in" OnClick="LoginSignupButton_Click" />
+            <asp:Button ID="LogOutButton" runat="server" CssClass="login-signup-button" Text="log out" OnClick="logoutButton_Click" />
         </div>
         <div class="app-name">#memow</div>
 

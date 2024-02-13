@@ -16,11 +16,16 @@
         justify-content: center;
         align-items: center; 
     }
+    .error-message {
+        color: red;
+    }
+
     </style>
 
 </head>
 <body>
     <form id="form1" class="login-form" runat="server">
+    <asp:Label ID="errorMessage" runat="server" CssClass="error-message" Visible="false" ForeColor="Red"></asp:Label>
         <div class="login-container">
             <!-- Content for the square -->
             <h1 class="login-header">#memow</h1>
@@ -33,8 +38,9 @@
                 <asp:TextBox ID="password" runat="server" TextMode="Password" CssClass="login-input" style="margin-bottom: 30px; width: 90%; height: 20px; background-color: #E2E2E2; border: none; border-radius: 10px;" />
             </div>
             <div style="display: flex; justify-content: space-between;">
-                <asp:Button ID="loginButton" runat="server" CssClass="login-button" Text="log in" />
-                <asp:Button ID="signupButton" runat="server" CssClass="login-button" Text="sign up" />
+                <asp:Button ID="loginButton" runat="server" CssClass="login-button" Text="log in" OnClick="loginButton_Click" />
+                <asp:Button ID="signupButton" runat="server" CssClass="login-button" Text="sign up" OnClick="SignUpButton_Click" />
+
             </div>
         </div>
     </form>
