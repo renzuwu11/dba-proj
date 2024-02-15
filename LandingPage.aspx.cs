@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -13,9 +14,12 @@ namespace DBAProject
         {
 
         }
-        protected void LoginSignupButton_Click(object sender, EventArgs e)
+        protected void LogOutButton_Click(object sender, EventArgs e)
         {
-            // This method will be called when the LoginSignupButton is clicked
+            // Perform logout action, such as clearing session variables
+            Session.Clear(); // Clear all session variables
+
+            // Redirect to login page
             Response.Redirect("~/LoginSignupPage.aspx");
         }
 

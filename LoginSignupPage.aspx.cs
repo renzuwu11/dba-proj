@@ -12,94 +12,80 @@ namespace DBAProject
 {
     public partial class LoginSignupPage : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
-
         protected void loginButton_Click(object sender, EventArgs e)
         {
-            string enteredUsername = username.Text;
-            string enteredPassword = password.Text;
+            string Username = this.Username.Text;
+            string PasswordHash = this.PasswordHash.Text;
 
-            // Check if the username and password are correct by querying the database
-            if (ValidateUser(enteredUsername, enteredPassword))
+            // Call the stored procedure to validate user credentials
+            int isValid = ValidateUser(Username, PasswordHash);
+
+            if (isValid == 1)
             {
-                // Redirect the user to the landing page upon successful login
-                Response.Redirect("LoggedIn.aspx");
+                // User authenticated successfully, redirect to home page
+                Response.Redirect("LandingPage.aspx");
             }
             else
             {
-                // Display an error message if the credentials are incorrect
-                // You can implement this as needed, such as displaying a message on the page
+                errorMessage.Text = "Invalid username or password.";
+                errorMessage.Visible = true;
             }
         }
 
         protected void SignUpButton_Click(object sender, EventArgs e)
         {
-            string connectionString = "DbConnection";
+            string Username = this.Username.Text;
+            string PasswordHash = this.PasswordHash.Text;
 
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    using (SqlCommand command = new SqlCommand("CreateUser", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@Username", username.Text);
-                        command.Parameters.AddWithValue("@PasswordHash", password.Text); 
+            // Call the stored procedure to create a new user
+            string message = CreateUser(Username, PasswordHash);
 
-                        connection.Open();
-                        int rowsAffected = command.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
-                        {
-                            // User successfully created
-                            errorMessage.Text = "Sign up successful!";
-                            errorMessage.Visible = true;
-
-                            // Redirect to the landing page
-                            Response.Redirect("LandingPage.aspx");
-                        }
-                        else
-                        {
-                            // No rows affected, sign up failed
-                            errorMessage.Text = "Failed to sign up. Please try again.";
-                            errorMessage.Visible = true;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log the exception
-                errorMessage.Text = "An error occurred while signing up. Please try again later.";
-                errorMessage.Visible = true;
-                // Log the exception details for debugging purposes
-                Console.WriteLine(ex.ToString());
-            }
+            // Display message to user
+            errorMessage.Text = message;
+            errorMessage.Visible = true;
         }
 
-        private bool ValidateUser(string username, string password)
+        // Function to call the stored procedure for user authentication
+        private int ValidateUser(string Username, string PasswordHash)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString; // Retrieve connection string from web.config
-            bool isValid = false;
+            // Retrieve connection string from configuration file
+            string connectionString = ConfigurationManager.ConnectionStrings["ProjectConnection"].ConnectionString;
 
+            // Use retrieved connection string to create SqlConnection object
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand("ValidateUser", connection))
+                using (SqlCommand command = new SqlCommand("SP_ValidateUser", connection))
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@Username", username);
-                    command.Parameters.AddWithValue("@PasswordHash", password);
-
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Username", Username);
+                    command.Parameters.AddWithValue("@PasswordHash", PasswordHash); // Note: Password hashing should be used for security
                     connection.Open();
-                    isValid = Convert.ToBoolean(command.ExecuteScalar());
+                    int isValid = Convert.ToInt32(command.ExecuteScalar());
+                    return isValid;
                 }
             }
-
-            return isValid;
         }
 
+        // Function to call the stored procedure for user registration
+        public string CreateUser(string Username, string PasswordHash)
+        {
+            // Retrieve connection string from configuration file
+            string connectionString = ConfigurationManager.ConnectionStrings["ProjectConnection"].ConnectionString;
+
+            // Use retrieved connection string to create SqlConnection object
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("SP_CreateUser", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Username", Username);
+                    command.Parameters.AddWithValue("@PasswordHash", PasswordHash);
+
+                    connection.Open();
+                    string message = command.ExecuteScalar().ToString();
+                    return message;
+                }
+            }
+        }
     }
 }

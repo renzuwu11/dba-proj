@@ -143,7 +143,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="app-name">#memow</div>
+        <asp:Label ID="ErrorMessageLabel" runat="server" Text="" ForeColor="Red"></asp:Label>
+        <a href="LandingPage.aspx" class="app-name">#memow</a>
         <div>
             <!-- Square for Title -->
             <asp:TextBox ID="TitleTextBox" runat="server" CssClass="TitleSquare" placeholder="Title"></asp:TextBox>

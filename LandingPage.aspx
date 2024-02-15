@@ -8,6 +8,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>#memow</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+
+        /* Styles for login/signup button */
+    .logout-button {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-family: "Canva Sans", sans-serif; /* Use Canva Sans font */
+        border: none;
+        border-radius: 20px;
+        background-color: #545454; /* Initial background color */
+        color: white;
+        cursor: pointer;
+    }
+
+    /* Hover styles for login/signup button */
+    .logout-button:hover {
+        background-color: black; /* Hover background color */
+    }
+
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -21,8 +44,8 @@
         </div>
 
         <!-- Login/Signup button -->
-        <div id="loginSignupContainer" runat="server" class="login-signup-container">
-            <asp:Button ID="LoginSignupButton" runat="server" CssClass="login-signup-button" Text="sign up / log in" OnClick="LoginSignupButton_Click" />
+        <div id="logoutContainer" runat="server">
+            <asp:Button ID="LogOutButton" runat="server" CssClass="logout-button" Text="log out" OnClick="LogOutButton_Click" />
         </div>
         <div class="app-name">#memow</div>
 
