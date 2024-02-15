@@ -154,19 +154,12 @@
         
         <!-- Filter dropdown -->
         <div class="dropdown">
-            <button class="btn btn-default filter-btn" type="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Filter
-                <span class="caret filter-caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="filterDropdown">
-                <li><a href="#"><span class="glyphicon glyphicon-arrow-up"></span> Date (Recent to Later)</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-arrow-down"></span> Date (Later to Recent)</a></li>
-            </ul>
+            <!-- Your dropdown menu -->
         </div>
         <asp:Label ID="noNotesLabel" runat="server" Text="There are no notes to display." Visible="false"></asp:Label>
         <br /> <br /> <br /> <br /> 
         <div class="container">
-            <asp:Repeater ID="NoteRepeater" runat="server">
+            <asp:Repeater ID="NoteRepeater" runat="server" OnItemCommand="NoteRepeater_ItemCommand">
                 <ItemTemplate>
                     <div class="note-container">
                         <div class="note-header">
@@ -181,8 +174,8 @@
                             <%# Eval("NoteContent") %>
                         </div>
                         <div class="note-buttons">
-                            <asp:Button ID="EditButton" runat="server" Text="Edit" CssClass="edit-button" CommandName="Edit" />
-                            <asp:Button ID="DeleteButton" runat="server" Text="Delete" CssClass="delete-button" CommandName="Delete" />
+                            <asp:Button ID="EditButton" runat="server" Text="Edit" CssClass="edit-button" CommandName="Edit" CommandArgument='<%# Eval("NoteID") %>' />
+                            <asp:Button ID="DeleteButton" runat="server" Text="Delete" CssClass="delete-button" CommandName="Delete" CommandArgument='<%# Eval("NoteID") %>' />
                         </div>
                     </div>
                 </ItemTemplate>
