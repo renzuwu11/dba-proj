@@ -11,33 +11,53 @@ namespace DBAProject
         {
             if (!IsPostBack)
             {
-                // Check if the user is logged in (you might have your own authentication logic here)
-                int userID = GetLoggedInUserID(); // You need to implement this method
-
-                // Call the stored procedure to get notes for the logged-in user
-                DataTable dt = GetNotesByUserID(userID);
-
-                // Bind the retrieved notes to the Repeater control
-                NoteRepeater.DataSource = dt;
-                NoteRepeater.DataBind();
-
-                // Show a message if there are no notes
-                if (dt.Rows.Count == 0)
+                // Check if the user is logged in
+                if (Session["username"] != null)
                 {
-                    noNotesLabel.Visible = true;
+                    string username = Session["username"].ToString();
+
+                    // Get the user ID for the logged-in user
+                    int userID = GetUserIDByUsername(username);
+
+                    // Call the stored procedure to get notes for the logged-in user
+                    DataTable dt = GetNotesByUserID(userID);
+
+                    // Bind the retrieved notes to the Repeater control
+                    NoteRepeater.DataSource = dt;
+                    NoteRepeater.DataBind();
+
+                    // Show a message if there are no notes
+                    if (dt.Rows.Count == 0)
+                    {
+                        noNotesLabel.Visible = true;
+                    }
+                    else
+                    {
+                        noNotesLabel.Visible = false;
+                    }
+                }
+                else
+                {
+                    // Redirect the user to the login page if not logged in
+                    Response.Redirect("~/LoginSignupPage.aspx");
                 }
             }
         }
 
-        // Method to get the ID of the logged-in user (you need to implement your own authentication logic)
-        private int GetLoggedInUserID()
+        // Method to get the user ID by username
+        private int GetUserIDByUsername(string username)
         {
-            // This is just a placeholder. You should replace this with your actual authentication logic.
-            // For example, if you are using ASP.NET Identity, you might use something like:
-            // return User.Identity.GetUserId<int>();
-
-            // For now, let's assume user ID 1 is logged in.
-            return 1;
+            string connectionString = ConfigurationManager.ConnectionStrings["ProjectConnection"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("SELECT UserID FROM Users WHERE Username = @Username", connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    return result == null ? 0 : Convert.ToInt32(result);
+                }
+            }
         }
 
         // Method to call the stored procedure and retrieve notes for the specified user ID

@@ -163,7 +163,7 @@
                 <li><a href="#"><span class="glyphicon glyphicon-arrow-down"></span> Date (Later to Recent)</a></li>
             </ul>
         </div>
-        <asp:Label ID="noNotesLabel" runat="server" Text="No notes found." Visible="false"></asp:Label>
+        <asp:Label ID="noNotesLabel" runat="server" Text="There are no notes to display." Visible="false"></asp:Label>
         <br /> <br /> <br /> <br /> 
         <div class="container">
             <asp:Repeater ID="NoteRepeater" runat="server">

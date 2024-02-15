@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.Security;
+using System.Web.Services.Description;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace DBAProject
 {
@@ -12,25 +9,38 @@ namespace DBAProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                if (Session["username"] != null)
+                {
+                    string username = Session["username"].ToString();
+                }
+                else
+                {
+                    Response.Redirect("~/LoginSignupPage.aspx");
+                }
+            }
         }
+
+
         protected void LogOutButton_Click(object sender, EventArgs e)
         {
-            // Perform logout action, such as clearing session variables
-            Session.Clear(); // Clear all session variables
+            // Clear all session variables
+            Session.Clear();
 
-            // Redirect to login page
+            // Redirect to the login page
             Response.Redirect("~/LoginSignupPage.aspx");
         }
 
         protected void ViewNoteButton_Click(object sender, EventArgs e)
         {
-            // This method will be called when the ViewNotesButton is clicked
+            // Redirect to the ViewNotePage
             Response.Redirect("~/ViewNotePage.aspx");
         }
+
         protected void NewNoteButton_Click(object sender, EventArgs e)
         {
-            // This method will be called when the ViewNotesButton is clicked
+            // Redirect to the NewNotePage
             Response.Redirect("~/NewNotePage.aspx");
         }
     }

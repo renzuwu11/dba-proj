@@ -24,8 +24,12 @@ namespace DBAProject
 
             if (isValid == 1)
             {
-                // Store the username in a session variable
-                Session["username"] = username;
+                // Retrieve the user ID after successful login
+                int userID = GetUserIDByUsername(username);
+
+                // Store the username and userID in session variables
+                Session["Username"] = username;
+                Session["UserID"] = userID;
 
                 // Display alert message using JavaScript
                 string script = "alert('Logged in successfully!');";
@@ -40,6 +44,7 @@ namespace DBAProject
                 errorMessage.Visible = true;
             }
         }
+
 
         protected void SignUpButton_Click(object sender, EventArgs e)
         {
@@ -87,6 +92,21 @@ namespace DBAProject
             {
                 Response.Write("<script>alert('" + ex.Message + "');</script>");
                 return 0;
+            }
+        }
+
+        private int GetUserIDByUsername(string username)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["ProjectConnection"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("SELECT UserID FROM Users WHERE Username = @Username", connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    return result == null ? 0 : Convert.ToInt32(result);
+                }
             }
         }
 

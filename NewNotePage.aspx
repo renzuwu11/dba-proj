@@ -151,12 +151,15 @@
             <!-- Square for Title -->
             <asp:TextBox ID="SubtitleTextBox" runat="server" CssClass="SubtitleSquare" placeholder="Subtitle"></asp:TextBox>
             <!-- Square for Category -->
-            <asp:DropDownList ID="CategoryDropDown" runat="server" CssClass="CategorySquare">
-                <asp:ListItem Text="Select Category" Value=""></asp:ListItem>
-                <asp:ListItem Text="School" Value="School"></asp:ListItem>
-                <asp:ListItem Text="Work" Value="Work"></asp:ListItem>
-                <asp:ListItem Text="Daily" Value="Daily"></asp:ListItem>
-            </asp:DropDownList >
+                <asp:DropDownList ID="CategoryDropDown" runat="server" CssClass="CategorySquare">
+                    <asp:ListItem Text="Select Category" Value=""></asp:ListItem>
+                    <asp:ListItem Text="Work" Value="1"></asp:ListItem>
+                    <asp:ListItem Text="Daily" Value="2"></asp:ListItem>
+                    <asp:ListItem Text="Ideas" Value="3"></asp:ListItem>
+                    <asp:ListItem Text="School" Value="4"></asp:ListItem>
+                    <asp:ListItem Text="Personal" Value="5"></asp:ListItem>
+                    <asp:ListItem Text="Others" Value="6"></asp:ListItem>
+                </asp:DropDownList >
             <!-- Square for Date -->
             <asp:TextBox ID="DateTextBox" runat="server" CssClass="DateSquare" TextMode="Date" style="text-align: center; padding-left: 30px; padding-right: 40px;"></asp:TextBox>
         </div>
@@ -166,10 +169,7 @@
             <div id="charCount" class="char-count">Characters: 0</div>
         </div>
         <div>
-       <%-- <asp:Button ID="BoldButton" runat="server" Text="B" CssClass="format-button" OnClientClick="makeBold(); return false;" />
-            <asp:Button ID="ItalicButton" runat="server" Text="I" CssClass="format-button" OnClientClick="makeItalic(); return false;" />
-            <asp:Button ID="UnderlineButton" runat="server" Text="U" CssClass="format-button" OnClientClick="makeUnderline(); return false;" /> --%>
-            <asp:Button ID="SaveButton" runat="server" CssClass="save-button" Text="save"/>
+            <asp:Button ID="SaveButton" runat="server" CssClass="save-button" Text="save" OnClick="SaveButton_Click"/>
         </div>
     </form>
 
@@ -186,45 +186,13 @@
         }
     </script>
 
-    
-<%--    <script>
-        function makeBold() {
-            var textBox = document.getElementById('<%= TextBox.ClientID %>');
-            var currentStyle = textBox.style.fontWeight;
-            if (currentStyle === 'bold') {
-                textBox.style.fontWeight = 'normal';
-                document.getElementById('<%= BoldButton.ClientID %>').style.color = ''; // Reset button color
-            } else {
-                textBox.style.fontWeight = 'bold';
-                document.getElementById('<%= BoldButton.ClientID %>').style.color = 'black'; // Set button color
-            }
-        }
-
-        function makeItalic() {
-            var textBox = document.getElementById('<%= TextBox.ClientID %>');
-            var currentStyle = textBox.style.fontStyle;
-            if (currentStyle === 'italic') {
-                textBox.style.fontStyle = 'normal';
-                document.getElementById('<%= ItalicButton.ClientID %>').style.color = ''; // Reset button color
-            } else {
-                textBox.style.fontStyle = 'italic';
-                document.getElementById('<%= ItalicButton.ClientID %>').style.color = 'black'; // Set button color
-            }
-        }
-
-        function makeUnderline() {
-            var textBox = document.getElementById('<%= TextBox.ClientID %>');
-            var currentStyle = textBox.style.textDecoration;
-            if (currentStyle === 'underline') {
-                textBox.style.textDecoration = 'none';
-                document.getElementById('<%= UnderlineButton.ClientID %>').style.color = ''; // Reset button color
-            } else {
-                textBox.style.textDecoration = 'underline';
-                document.getElementById('<%= UnderlineButton.ClientID %>').style.color = 'black'; // Set button color
-            }
-        }
-    </script>--%>
-
+    <script>
+        // Function to set the default value of the date textbox to the current date
+        window.onload = function () {
+            var currentDate = new Date().toISOString().split('T')[0];
+            document.getElementById('<%= DateTextBox.ClientID %>').value = currentDate;
+        };
+    </script>
 
 </body>
 </html>
